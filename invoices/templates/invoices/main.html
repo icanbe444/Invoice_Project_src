@@ -1,0 +1,4 @@
+{% extends "base.html" %} {% block title %} Home {% endblock title %} {% block content %} {% for obj in qs %}
+
+<b>{{obj.number}}</b></br>
+{% endfor %} {% endblock content %}
