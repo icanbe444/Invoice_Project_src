@@ -1,12 +1,12 @@
-from cProfile import Profile
 import profile
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import ListView, FormView
-
+from django.views.generic import ListView, FormView, TemplateView
+from django.urls import reverse
 from invoices.forms import InvoiceForm
 from .models import Invoice
 from profiles.models import Profile
+from django.views.generic import View
 # Create your views here.
 
 class InvoiceListView(ListView):
@@ -28,8 +28,12 @@ class InvoiceListView(ListView):
 class InvoiceFormView(FormView):
     form_class      = InvoiceForm
     template_name   = 'invoices/create.html'
-    success_url     = reverse_lazy('invoices:main') #this will return the form to main view after successfull completion of a new form
+    # success_url     = reverse_lazy('invoices:main') #this will return the form to main view after successfull completion of a new form
+    i_instance      = None
 
+
+    def get_success_url(self):
+        return reverse('invoices:simple-template', kwargs={'pk': self.i_instance.pk})
 
 
     def form_valid(self, form):
@@ -37,4 +41,8 @@ class InvoiceFormView(FormView):
         instance = form.save(commit=False)
         instance.profile = profile
         form.save()
+        self.i_instance = instance
         return super().form_valid(form)
+#this is used to replace the success_url (user is redirected here after a save)
+class SimpleTemplateView(TemplateView):
+    template_name = 'invoices/simple_template.html'
