@@ -1,12 +1,19 @@
 import profile
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import ListView, FormView, TemplateView
+from django.views.generic import (
+    ListView, 
+    FormView, 
+    TemplateView, 
+    DetailView, 
+    UpdateView
+)
 from django.urls import reverse
 from invoices.forms import InvoiceForm
 from .models import Invoice
 from profiles.models import Profile
 from django.views.generic import View
+from django.contrib import messages
 # Create your views here.
 
 class InvoiceListView(ListView):
@@ -33,7 +40,7 @@ class InvoiceFormView(FormView):
 
 
     def get_success_url(self):
-        return reverse('invoices:simple-template', kwargs={'pk': self.i_instance.pk})
+        return reverse('invoices:simple_template', kwargs={'pk': self.i_instance.pk})
 
 
     def form_valid(self, form):
@@ -43,6 +50,24 @@ class InvoiceFormView(FormView):
         form.save()
         self.i_instance = instance
         return super().form_valid(form)
-#this is used to replace the success_url (user is redirected here after a save)
-class SimpleTemplateView(TemplateView):
+
+class SimpleTemplateView(DetailView):
+    model = Invoice
     template_name = 'invoices/simple_template.html'
+
+#this is used to replace the success_url (user is redirected here after a save)
+# class SimpleTemplateView(TemplateView):
+#     template_name = 'invoices/simple_template.html'
+
+
+class InvoiceUpdateView(UpdateView):
+    model = Invoice
+    template_name = 'invoices/update.html'
+    form_class = InvoiceForm
+    success_url = reverse_lazy('invoices:main')
+
+    #this function is used to display the alert message after update is done
+    def form_valid(self, form):
+        instance = form.save()
+        messages.info(self.request, f'Successfully updated invoice - {instance.number}')
+        return super().form_valid(form)
