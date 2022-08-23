@@ -60,6 +60,9 @@ class SimpleTemplateView(DetailView):
 #     template_name = 'invoices/simple_template.html'
 
 
+
+
+
 class InvoiceUpdateView(UpdateView):
     model = Invoice
     template_name = 'invoices/update.html'
