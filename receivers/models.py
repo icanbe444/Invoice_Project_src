@@ -13,6 +13,7 @@ class Receiver(models.Model):
     website = models.URLField(blank=True)
     created = models.DateTimeField(default=datetime.now)
 
+    logo = models.ImageField(default= 'images/logo.png')
 
     #add later:
     #logo

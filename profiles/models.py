@@ -2,6 +2,8 @@ from turtle import update
 from django.db import models
 from django.contrib.auth.models import User
 from datetime import datetime
+
+
 from .utils import generate_account_number
 from jsonschema import ValidationError
 
@@ -17,6 +19,9 @@ class Profile(models.Model):
     company_info        = models.TextField()
     created             = models.DateTimeField(auto_now= True)
     update              = models.DateTimeField(auto_now=True)
+
+    avatar = models.ImageField(default= 'images/silihouette.jpeg')
+    company_logo = models.ImageField(default= 'images/logo.png')
 
 
     def __str__(self):
