@@ -9,8 +9,9 @@
         <div class="card-text">completion_date: {{obj.completion_date}}</div>
         <div class="text-muted">Amount # {{obj.total_amount}}</div>
         <div class="mt-2">
-            <a href="{% url 'invoices:simple_template' obj.pk %}" class="btn btn-primary">Details</a>
-            <a href="{% url 'invoices:update' obj.pk %}" class="btn btn-info">Update</a>
+
+            <a href="{% url 'invoices:detail' obj.pk %}" class="btn btn-primary">Details</a> {% if not obj.closed %}
+            <a href="{% url 'invoices:update' obj.pk %}" class="btn btn-info">Update</a> {% endif %}
         </div>
     </div>
 </div>

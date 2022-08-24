@@ -6,6 +6,16 @@
     <title>Invoice | PDF</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        footer {
+            margin-top: auto;
+        }
+        
         @page {
             size: a4 portrait;
             margin: 2cm;
@@ -25,20 +35,84 @@
             border-collapse: collapse;
             border: 1px solid #e8e8e8;
         }
+        
+        .site-footer {
+            background-color: #737373;
+            padding: 45px 0 20px;
+            font-size: 15px;
+            line-height: 24px;
+            color: #29aafe;
+        }
+        
+        .site-footer hr {
+            border-top-color: #bbb;
+            opacity: 0.5
+        }
+        
+        .site-footer a {
+            color: #737373;
+        }
+        
+        .site-footer a:hover {
+            color: #3366cc;
+            text-decoration: none;
+        }
+        
+        .footer-links {
+            padding-left: 0;
+            list-style: none
+        }
+        
+        .footer-links li {
+            display: block
+        }
+        
+        .footer-links a {
+            color: #737373
+        }
+        
+        .footer-links a:active,
+        .footer-links a:focus,
+        .footer-links a:hover {
+            color: #3366cc;
+            text-decoration: none;
+        }
+        
+        .footer-links.inline li {
+            display: inline-block
+        }
+        
+        .site-footer .social-icons {
+            text-align: right
+        }
+        
+        .site-footer .social-icons a {
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            margin-left: 6px;
+            margin-right: 0;
+            border-radius: 100%;
+            background-color: #33353d
+        }
+        
+        .copyright-text {
+            margin: 0
+        }
     </style>
 </head>
 
 <body>
     <section id="header-section">
-        <table style="width: 100%; border: 8px;">
+        <table style="width: 100%; border: 0px">
             <tr>
-                <th style="text-align: left; width: 25px;">
-                    <img src="{{static.logo}}" width="150">
+                <th style="text-align: left; width: 25%">
+                    <img src="static/img/logo.png" width="100">
                 </th>
 
-                <th style="text-align: right;">
-                    <br>>
-                    <div style="font-size: 18px;"> Invoice number : {{object.number}}<br> Completion Date : {{object.completion_date}}<br> Issue Date : {{object.issue_date}}<br> Payment Date ; {{object.payment_date}}
+                <th style="text-align: right">
+                    <br>
+                    <div style="font-size: 14px;"> Invoice number : {{object.number}}<br> Completion Date : {{object.completion_date}}<br> Issue Date : {{object.issue_date}}<br> Payment Date : {{object.payment_date}}<br><br>
                         <div>Account Number : {{object.profile.account_number}} </div>
                     </div>
                 </th>
@@ -49,7 +123,7 @@
         <br>
         <table style="width: 100%">
             <th style="text-align: left">
-                <div style="font-size: 15px"> Seller:</div>
+                <div style="font-size: 15px"> Sender:</div>
                 {{object.profile.company_name}}<br>
 
             </th>
@@ -65,12 +139,12 @@
     <section id="data-section">
         {% if object.positions %}
         <h3>Positions</h3>
-        <table style="width: 100%">
-            <tr style="background-color: #e8e8e8;">
+        <table style="width: 100%; margin-top: 20px;">
+            <tr style="background-color: #e8e8e8; ">
                 <th style="text-align: left; width: 5%;">#</th>
-                <th style="text-align: left; width: 5%;">Title</th>
-                <th style="text-align: left; width: 5%;">Description</th>
-                <th style="text-align: left; width: 5%;">Amount</th>
+                <th style="text-align: left">Title</th>
+                <th style="text-align: left">Description</th>
+                <th style="text-align: left">Amount</th>
             </tr>
             {% for position in object.positions %}
 
@@ -78,15 +152,69 @@
                 <td>{{forloop.counter}}</td>
                 <td>{{position.title}}</td>
                 <td>{{position.description}}</td>
-                <td># {{position.amount}}</td>
+                <td>N {{position.amount}}</td>
             </tr>
             {% endfor %}
         </table>
         {% else %}
         <h3>No positions added</h3>
         {% endif %}
-        <div style="font-size: 15px; margin-top: 10px; text-align: right">Total: # {{object.total_amount}}</div>
+        <div style="font-size: 15px; margin-top: 10px; text-align: right">Total: N {{object.total_amount}}</div>
+
     </section>
+    <hr>
+    <hr>
+    <br>
+    <section id="header-section">
+        <table style="width: 100%; border: 0px">
+            <tr>
+                <th style="text-align: right; width: 25%">
+
+                </th>
+
+                <th style="text-align: right">
+                    <br>
+                    <div><img src="static/img/bukolasignature.png" width="100"> </div>
+                </th>
+
+            </tr>
+        </table>
+        <hr>
+        <br>
+
+    </section>
+    <br>
+    <section id="data-section">
+
+        <hr>
+        <br>
+        <!-- Site footer -->
+        <footer class="site-footer">
+
+            <div class="container" style=" text-align: center">
+                <div class="row">
+                    <div class="col-md-8 col-sm-6 col-xs-12">
+                        <p class="copyright-text" style="color: #29aafe;">Copyright &copy; 2022 All Rights Reserved by
+                            <a href="https://tpais-events.com/">TPAIS Nig Ltd</a>.
+                        </p>
+                        <p class="copyright-text" style="color: #29aafe;">19, Cairo Street, Wuse II, Abuja</p>
+                        <p class="copyright-text" style="color: #29aafe;">
+                            <a href="https://tpais-events.com/"></a>www.tpais-events.com | contactus@tpais-events.com</p>
+                    </div>
+
+                    <div class="col-md-4 col-sm-6 col-xs-12">
+                        <ul class="social-icons">
+                            <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+                            <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
+                            <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        </footer>
+
 
 </body>
 
