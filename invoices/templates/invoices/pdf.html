@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Invoice | PDF</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style>
+        @page {
+            size: a4 portrait;
+            margin: 2cm;
+        }
+        
+        @font-face {
+            font-family: 'Lato';
+            src: url({{static.font}});
+        }
+        
+        * {
+            font-family: 'Lato';
+            font-size: 12px;
+        }
+        
+        table {
+            border-collapse: collapse;
+            border: 1px solid #e8e8e8;
+        }
+    </style>
+</head>
+
+<body>
+    <section id="header-section">
+        <table style="width: 100%; border: 8px;">
+            <tr>
+                <th style="text-align: left; width: 25px;">
+                    <img src="{{static.logo}}" width="150">
+                </th>
+
+                <th style="text-align: right;">
+                    <br>>
+                    <div style="font-size: 18px;"> Invoice number : {{object.number}}<br> Completion Date : {{object.completion_date}}<br> Issue Date : {{object.issue_date}}<br> Payment Date ; {{object.payment_date}}
+                        <div>Account Number : {{object.profile.account_number}} </div>
+                    </div>
+                </th>
+
+            </tr>
+        </table>
+        <hr>
+        <br>
+        <table style="width: 100%">
+            <th style="text-align: left">
+                <div style="font-size: 15px"> Seller:</div>
+                {{object.profile.company_name}}<br>
+
+            </th>
+            <th style="text-align: left">
+                <div style="font-size: 15px"> Receiver:</div>
+                {{object.receiver.name}}<br> {{object.receiver.address}}
+                <br> {{object.receiver.website}}
+                <br>
+            </th>
+        </table>
+    </section>
+    <br>
+    <section id="data-section">
+        {% if object.positions %}
+        <h3>Positions</h3>
+        <table style="width: 100%">
+            <tr style="background-color: #e8e8e8;">
+                <th style="text-align: left; width: 5%;">#</th>
+                <th style="text-align: left; width: 5%;">Title</th>
+                <th style="text-align: left; width: 5%;">Description</th>
+                <th style="text-align: left; width: 5%;">Amount</th>
+            </tr>
+            {% for position in object.positions %}
+
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{position.title}}</td>
+                <td>{{position.description}}</td>
+                <td># {{position.amount}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <h3>No positions added</h3>
+        {% endif %}
+        <div style="font-size: 15px; margin-top: 10px; text-align: right">Total: # {{object.total_amount}}</div>
+    </section>
+
+</body>
+
+</html>
