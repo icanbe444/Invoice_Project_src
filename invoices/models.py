@@ -44,4 +44,6 @@ class Invoice(models.Model):
         for pos in qs:
             total += pos.amount
 
-        return total
+        return "{:,}".format(total)
+
+    

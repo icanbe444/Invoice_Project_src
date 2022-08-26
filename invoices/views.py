@@ -114,9 +114,9 @@ class CloseInvoiceView(LoginRequiredMixin, RedirectView):
 
 
     def get_redirect_url(self, *args, **kwargs):
-        pk = self.kwargs.get('pk')
-        obj = Invoice.objects.get(pk = pk)
-        obj.closed = True
+        pk          = self.kwargs.get('pk')
+        obj         = Invoice.objects.get(pk = pk)
+        obj.closed  = True
         obj.save()
         return super().get_redirect_url(*args, **kwargs)
 

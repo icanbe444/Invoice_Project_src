@@ -1,4 +1,4 @@
-{% extends "base.html" %} {% load crispy_forms_tags %} {% block title %} New Invoice {% endblock title %} {% block content %}
+{% extends "index.html" %} {% load crispy_forms_tags %} {% block title %} New Invoice {% endblock title %} {% block content %}
 
 <form action="" method="POST">
     {% csrf_token %} {{ form | crispy }}
