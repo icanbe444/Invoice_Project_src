@@ -3,6 +3,7 @@ from django.dispatch import receiver
 from profiles.models import Profile
 from receivers.models import Receiver
 
+
 # Create your models here.
 
 class Tag(models.Model):
@@ -14,7 +15,7 @@ class Tag(models.Model):
 class Invoice(models.Model):
     profile         = models.ForeignKey(Profile, on_delete=models.CASCADE)
     receiver        = models.ForeignKey(Receiver, on_delete=models.CASCADE)
-    number          = models.CharField(max_length=150)
+    number          = models.CharField(max_length=10, blank=True)
     completion_date = models.DateField()
     issue_date      = models.DateField()
     payment_date    = models.DateField()
@@ -26,7 +27,7 @@ class Invoice(models.Model):
 
 
     def __str__(self):
-        return f"Invoice number:n {self.number}, pk:{self.pk}"
+        return f"Invoice number: {self.number}, pk:{self.pk}"
         
 
     @property
@@ -46,4 +47,5 @@ class Invoice(models.Model):
 
         return "{:,}".format(total)
 
-    
+  
+

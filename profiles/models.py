@@ -14,7 +14,7 @@ Class for the owner of the invoice
 '''
 class Profile(models.Model):
     user                = models.OneToOneField(User, on_delete=models.CASCADE)
-    account_number      = models.CharField(max_length= 26, blank= True)
+    account_number      = models.CharField(max_length= 10, blank= True)
     company_name        = models.CharField(max_length= 220)
     company_info        = models.TextField()
     created             = models.DateTimeField(auto_now= True)
@@ -39,9 +39,4 @@ class Profile(models.Model):
         
 
 
-    # def clean(self):
-    #     if len(self.account_number) != 26:
-
-    #         raise ValidationError('Bank account number must be 26 character long') 
-    # avatar              =
-    # company_logo        =
+   
